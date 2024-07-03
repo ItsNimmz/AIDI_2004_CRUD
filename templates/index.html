@@ -1,0 +1,77 @@
+<!-- templates/add_student.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student Data</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <form action="/added" method="post" onsubmit="return validateForm()">
+        <h2>Add Student Data</h2>
+        <label for="first_name">First Name:</label><br>
+        <input type="text" id="first_name" name="first_name" required><br>
+        <span id="first_name_error" class="error"></span><br>
+
+        <label for="last_name">Last Name:</label><br>
+        <input type="text" id="last_name" name="last_name" required><br>
+        <span id="last_name_error" class="error"></span><br>
+
+        <label for="dob">Date of Birth:</label><br>
+        <input type="date" id="dob" name="dob" required><br>
+        <span id="dob_error" class="error"></span><br>
+
+        <label for="amount_due">Amount Due:</label><br>
+        <input type="number" id="amount_due" name="amount_due" min="0" step="0.01" required><br>
+        <span id="amount_due_error" class="error"></span><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            let firstName = document.getElementById('first_name').value;
+            let lastName = document.getElementById('last_name').value;
+            let dob = document.getElementById('dob').value;
+            let amountDue = document.getElementById('amount_due').value;
+
+            let firstNameError = document.getElementById('first_name_error');
+            let lastNameError = document.getElementById('last_name_error');
+            let dobError = document.getElementById('dob_error');
+            let amountDueError = document.getElementById('amount_due_error');
+
+            let isValid = true;
+
+            // Reset error messages
+            firstNameError.textContent = '';
+            lastNameError.textContent = '';
+            dobError.textContent = '';
+            amountDueError.textContent = '';
+
+            // Validation logic
+            if (firstName.trim() === '') {
+                firstNameError.textContent = 'First Name is required';
+                isValid = false;
+            }
+
+            if (lastName.trim() === '') {
+                lastNameError.textContent = 'Last Name is required';
+                isValid = false;
+            }
+
+            if (!dob) {
+                dobError.textContent = 'Date of Birth is required';
+                isValid = false;
+            }
+
+            if (isNaN(amountDue) || amountDue < 0) {
+                amountDueError.textContent = 'Amount Due must be a valid number greater than or equal to 0';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
